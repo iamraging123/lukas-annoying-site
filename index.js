@@ -895,20 +895,32 @@ function detectWindowClose () {
 }
 
 /**
- * Handle a child window closing.
+ * Handle a child window closing. Re-bait the user by putting the cat back
+ * on screen, so any click in the now-foreground parent (including a click
+ * on the cat) cascades another 8 popups.
  */
 function onCloseWindow (win) {
   const i = wins.indexOf(win)
   if (i >= 0) wins.splice(i, 1)
+  showHelloMessage()
 }
 
 /**
  * Show the unsuspecting user a friendly hello message with a cat.
+ * Safe to call repeatedly — bails out if the cat is already on screen, and
+ * avoids duplicating the .logout-messages container.
  */
 function showHelloMessage () {
+  if (document.querySelector('.hello-message')) return
   const template = document.querySelector('template')
   const clone = document.importNode(template.content, true)
-  document.body.appendChild(clone)
+  if (document.querySelector('.logout-messages')) {
+    // logout-messages already exists — only re-add the hello-message subtree
+    const helloMessage = clone.querySelector('.hello-message')
+    if (helloMessage) document.body.appendChild(helloMessage)
+  } else {
+    document.body.appendChild(clone)
+  }
 }
 
 /**
