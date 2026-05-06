@@ -9,19 +9,141 @@
 <head>
   <meta charset='UTF-8'>
   <meta name='theme-color' content='#fff' class='theme-color'/>
+  <title>🎉🎉 CONGRATULATIONS YOU WON 🎉🎉</title>
   <style>
     html, body {
       width: 100%;
       height: 100%;
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir,
-        'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial,
-        sans-serif;
-      overflow: hidden;
+      font-family: 'Comic Sans MS', 'Comic Sans', cursive, -apple-system,
+        BlinkMacSystemFont, 'segoe ui', arial, sans-serif;
+      overflow: auto;
+      background:
+        repeating-linear-gradient(45deg, #ffeb3b 0 20px, #f44336 20px 40px);
     }
     .hello-message {
-      margin: 40px;
+      max-width: 720px;
+      margin: 20px auto;
+      padding: 20px;
       text-align: center;
+      background: white;
+      border: 6px ridge #ff00ff;
+      box-shadow: 0 0 0 4px yellow, 0 0 30px 10px rgba(255,0,0,0.6);
+    }
+    .congrats-banner {
+      font-size: 38px;
+      font-weight: bold;
+      color: red;
+      background: yellow;
+      padding: 12px;
+      border: 4px dashed red;
+      animation: wiggle 0.35s ease-in-out infinite;
+    }
+    .visitor-line {
+      font-size: 26px;
+      margin: 16px 0;
+    }
+    .visitor-num {
+      color: red;
+      font-size: 1.4em;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .live-counter {
+      color: green;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 6px 0;
+    }
+    .live-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #0c0;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1s steps(2) infinite;
+    }
+    .cat-wrapper {
+      margin: 14px;
+    }
+    .spinning-cat {
+      width: 220px !important;
+      animation: spin 4s linear infinite;
+      cursor: pointer;
+      border: 4px solid magenta;
+      border-radius: 50%;
+    }
+    .claim-button {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff0, #f80, #ff0);
+      border: 4px solid red;
+      color: red;
+      font-family: inherit;
+      font-size: 26px;
+      font-weight: bold;
+      padding: 16px 28px;
+      margin: 18px 6px;
+      cursor: pointer;
+      animation: pulse 0.55s ease-in-out infinite;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 12px gold;
+    }
+    .claim-button:hover {
+      background: linear-gradient(45deg, #f80, #ff0, #f80);
+    }
+    .countdown {
+      color: red;
+      font-weight: bold;
+      font-size: 22px;
+      margin: 8px 0;
+    }
+    .timer {
+      background: #000;
+      color: #0f0;
+      padding: 3px 10px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .testimonials {
+      font-style: italic;
+      margin: 14px;
+      color: #444;
+      font-size: 13px;
+      background: #ffffe0;
+      padding: 10px;
+      border-left: 4px solid orange;
+      text-align: left;
+    }
+    .testimonials p { margin: 4px 0; }
+    .trust-badges {
+      font-weight: bold;
+      margin: 12px;
+      font-size: 14px;
+      color: navy;
+    }
+    .trust-badges span {
+      display: inline-block;
+      margin: 4px;
+      padding: 4px 8px;
+      background: #f0f0f0;
+      border: 1px solid #999;
+    }
+    .instructions {
+      font-size: 24px;
+      color: blue;
+      text-decoration: underline;
+      animation: wiggle 0.5s infinite;
+      margin-top: 18px;
+    }
+    .fine-print {
+      font-size: 9px;
+      color: #888;
+      margin-top: 14px;
+      max-height: 40px;
+      overflow: hidden;
     }
     .logout-messages {
       pointer-events: none;
@@ -31,23 +153,29 @@
       top: 0;
       left: 0;
       text-shadow: 2px 2px #FFF, 4px 4px 10px #000;
+      z-index: 9999;
     }
-    img {
-      width: 300px;
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
     @keyframes blurslowly {
-      0% {
-        filter: none;
-      }
-      92% {
-        filter: blur(0);
-      }
-      96% {
-        filter: blur(1px);
-      }
-      100% {
-        filter: blur(0);
-      }
+      0% { filter: none; }
+      92% { filter: blur(0); }
+      96% { filter: blur(1px); }
+      100% { filter: blur(0); }
     }
     body {
       animation-name: blurslowly;
@@ -61,11 +189,34 @@
 
 <template>
   <div class='hello-message'>
-    <h1>Hi there!</h1>
-    <h2>To get started, HOLD DOWN the space key for 3 seconds.</h2>
-    <h3>(or, on mobile, tap the cat!)</h3>
+    <div class='congrats-banner'>🎉 CONGRATULATIONS! 🎉</div>
 
-    <img src='cat-cute.jpg' alt='Cute cat' />
+    <p class='visitor-line'>You are the <span class='visitor-num'>1,000,000</span><sup>th</sup> visitor!</p>
+    <p class='live-counter'><span class='live-dot'></span><span class='live-num'>1,247</span> people claiming RIGHT NOW</p>
+
+    <div class='cat-wrapper'>
+      <img src='cat-cute.jpg' alt='Definitely Real Free Prize Cat' class='spinning-cat'/>
+    </div>
+
+    <button class='claim-button' type='button'>👇 CLAIM YOUR FREE iPHONE 47 PRO MAX 👇</button>
+
+    <p class='countdown'>⏰ Offer expires in: <span class='timer'>00:01:13</span></p>
+
+    <div class='testimonials'>
+      <p>★★★★★ "I clicked the cat and got 17 free iPads delivered to my house!" — Sarah K., definitely a real person</p>
+      <p>★★★★★ "My wife said this was a scam but now I drive a BMW. Take that, Linda." — Kevin, totally not fictional</p>
+      <p>★★★★★ "It also cured my back pain???" — Anonymous, may or may not exist</p>
+    </div>
+
+    <div class='trust-badges'>
+      <span>🛡️ MICROSOFT APPROVED</span>
+      <span>✓ ANTIVIRUS CERTIFIED</span>
+      <span>🔒 100% TOTALLY SAFE</span>
+      <span>🏆 #1 ON GOOGLE</span>
+    </div>
+
+    <p class='instructions'>👉 Tap the cat to begin! 👈</p>
+    <p class='fine-print'>By tapping the cat you agree to our 4,000-page Terms &amp; Conditions, which definitely do not authorize us to do anything weird with your browser, microphone, camera, clipboard, location, MIDI devices, Bluetooth devices, USB devices, serial ports, HID devices, file system, notifications, screen, idle state, or hardware media keys. You are also legally agreeing to be the 1,000,000th visitor in perpetuity.</p>
   </div>
   <div class='logout-messages'></div>
 </template>

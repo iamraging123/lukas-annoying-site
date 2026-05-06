@@ -921,6 +921,52 @@ function showHelloMessage () {
   } else {
     document.body.appendChild(clone)
   }
+  startScamCountdown()
+  startLiveCounter()
+}
+
+/**
+ * Tick a fake "offer expires in" countdown. When it hits zero, reset to a new
+ * random number — the offer never actually expires.
+ */
+function startScamCountdown () {
+  const timer = document.querySelector('.timer')
+  if (!timer) return
+  let secs = 60 + Math.floor(Math.random() * 120)
+  const render = () => {
+    const el = document.querySelector('.timer')
+    if (!el) return false
+    const h = String(Math.floor(secs / 3600)).padStart(2, '0')
+    const m = String(Math.floor((secs / 60) % 60)).padStart(2, '0')
+    const s = String(secs % 60).padStart(2, '0')
+    el.textContent = `${h}:${m}:${s}`
+    return true
+  }
+  render()
+  const interval = setInterval(() => {
+    secs -= 1
+    if (secs < 0) secs = 30 + Math.floor(Math.random() * 180)
+    if (!render()) clearInterval(interval)
+  }, 1000)
+}
+
+/**
+ * Jiggle the fake "X people claiming right now" number so it feels alive.
+ */
+function startLiveCounter () {
+  const el = document.querySelector('.live-num')
+  if (!el) return
+  let n = 1247
+  const interval = setInterval(() => {
+    const live = document.querySelector('.live-num')
+    if (!live) {
+      clearInterval(interval)
+      return
+    }
+    n += Math.floor(Math.random() * 7) - 2
+    if (n < 800) n = 800 + Math.floor(Math.random() * 100)
+    live.textContent = n.toLocaleString()
+  }, 1500)
 }
 
 /**
