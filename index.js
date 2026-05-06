@@ -9,10 +9,11 @@ const SCREEN_WIDTH = window.screen.availWidth
 const SCREEN_HEIGHT = window.screen.availHeight
 const WIN_WIDTH = 480
 const WIN_HEIGHT = 360
-const VELOCITY = 15
+const VELOCITY = 25
 const MARGIN = 15
 const TOP_MARGIN = 50
-const TICK_LENGTH = 50
+const TICK_LENGTH = 30
+const WINDOWS_PER_CLICK = 8
 
 const HIDDEN_STYLE = 'position: fixed; width: 1px; height: 1px; overflow: hidden; top: -10px; left: -10px;'
 
@@ -219,9 +220,7 @@ function init () {
     // (at least in Chrome), so don't even try. Checking `event.which !== 0` is just
     // a clever way to exclude touch events.
     if (event.which !== 0) {
-      openWindow()
-      openWindow()
-      openWindow()
+      for (let i = 0; i < WINDOWS_PER_CLICK; i++) openWindow()
     }
 
     startVibrateInterval()
